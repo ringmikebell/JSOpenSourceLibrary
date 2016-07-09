@@ -1,0 +1,251 @@
+section 1
+Set up a new folder.
+Command line - node --versoin
+	console.log("Hello")
+    set a var hi = "hello";
+    console.log(hi)
+create an app.js file
+Add some code and console.log it.
+run node app.js 
+Should say "Hello Node"
+
+Add express code
+	
+	var express = require('express');
+
+npm - package management system
+
+
+npm install express --save
+	added to package.json
+
+
+TEXT EDITORS
+ATOM, Brackets, Editors, NPM
+
+NPM VERSIOS
+  Versioning Packages
+  ^4.13.3 - NPM will install same major version.
+  	^4.xx.x - will take 4.14.1
+  	Can use a ~4.13.3 to take minor upgrades 4.13.4
+  	- not taking 4.14.
+
+  npm update - will install packages
+
+  over the course of time, the packages change.
+  Go in and specifically state
+
+  NODE IS
+  Server side JS framework/engine
+
+
+WHAT ARE WE BUILDING
+a library application
+
+EXPRESS CONFIG
+remove random code
+reference to express - points to it
+doesn't give us ability 
+
+var app = express();  //instance of express that we can do stuff with
+
+var port = 5000   //port express listens on
+app.listen(5000, function(err){
+	console.log('running server on port' + port);
+});  
+
+//callback - function that app
+
+node app.js on cmd
+running server on port 5000
+
+//server is ready to go
+//doesn't know what to do, but it's there
+
+
+Kicking off server ->
+	Next person doesn't have to care which file should run -> need standard way to execute
+
+	package.json
+		scripts
+			add "start":"node app.js"
+
+
+SIMPLE ROUTING
+Add route so express can deal with requests
+
+under var port
+app.get('/', function(request, response){
+	response.send("hello world");
+});
+
+slash is the home route /localhost 5000
+request - Info coming from the browser
+response - stuff we'll deal with
+
+console -> ctrl c
+Pull up browser & localhost:5000 
+
+Taking a request from the browser
+Sending it something back
+
+copy get and do hello books
+
+change /books
+
+open localhost & check out localhost 5000/books
+
+
+
+
+
+
+BOOTSTRAP TEMPLATE
+storystrap boostrapzero
+
+download the template
+
+unzip it
+create a public folder in project 
+	add css & js folders to it
+
+create a src folder
+	create a views folder in there
+		copy index.html there
+
+
+having to do app.get / is dumb
+
+PUBLIC AS Status
+set up public directory as static directory
+
+//set up some middleware
+//used by express first
+//anytime a requets is made to something css-> styles.css -First thing it will look in public
+
+	app.use(express.static('public'));
+
+	npm app.js
+	localhost:5000
+	localhost:5000/css/styles.css -> we will see css
+	//another static site -> just serves stuff up
+	app.use(express.static('src/views'));
+
+save & restart server
+
+In theory, entire static web site could go in there and it would work with static content.
+It would be done. 21 lines of code.
+
+INDEX.HTML
+change 
+bootstrap line 9 & 10
+script jquery tags 250 & 251
+
+go get latest versions of those things using Bower
+
+
+BOWER
+Bower - package manager for web packages 
+		-front end 
+		-install with npm
+		-flat package hierachy - bootstrap and jquery at same level
+		-bower install to install packages
+		-Bower.json
+
+npm - backend package manager
+
+	npm install bower -g  //installs bower globally
+
+	type bower - it now works
+	bower init
+		default questions
+
+	bower.json
+
+	bower install --save bootstrap
+	installs bootstrap and jquery
+		-bootstrap requires jquery so it installs jquery(a dependency) as well
+
+BOWER COMPONENTS DIRECTORY
+long name - painful typing it out
+not in public static
+need Bower to install files into public dir
+
+new file top dir
+
+	.bowerrc
+		json doc
+
+		{
+			"directory":"public/lib"
+		}
+
+
+		//css dir and js dir are for our css & js files. We wantsegregate bower's stuff in lib directory
+
+	delete bowercoponents dir
+
+	bower install --save bootstrap
+	creates a lib director
+
+	line9:	lib/bootstrap/dist/css/bootstrap.min.css
+
+	251: lib...dist
+
+	252: lib/jquery/dist/jquery.min.js
+
+	bower install font-awesome --save
+
+bower.json - 2 dependencies at bottom
+
+	10: lib/font-awesome/css/font-awesome.min.css
+
+save and refresh the site 
+restart the server
+
+develooper tools 
+check sources on css & bootstrap
+make sure in google tools
+
+GULP
+-helps with restart server
+-typing out all the bootstrap stuff
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

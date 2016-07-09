@@ -1,0 +1,20 @@
+{
+  "name": "bookapp",
+  "homepage": "https://github.com/jpauloconnor/JSOpenSourceLibrary",
+  "authors": [
+    "Paul <jamespauloconnor@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
