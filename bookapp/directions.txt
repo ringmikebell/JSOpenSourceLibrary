@@ -192,7 +192,7 @@ new file top dir
 
 	251: lib...dist
 
-	252: lib/jquery/dist/jquery.min.js
+	250: lib/jquery/dist/jquery.min.js
 
 	bower install font-awesome --save
 
@@ -210,6 +210,389 @@ make sure in google tools
 GULP
 -helps with restart server
 -typing out all the bootstrap stuff
+
+
+CONFIGURATION
+gulp
+	-task manager for project
+	-manage tasks
+	-npm install
+	-code based configuration
+	-package based
+JSHINT
+	-code quality enforcement
+	detects errors
+	-enforces conventions
+	-easy config
+
+JSCS
+	-coding styles/conventions
+	-easy config
+
+jonathanmills/codingstandards
+
+jscs -
+jshint - 
+
+	download the files
+	paste them in
+
+	linting tools in sublime 4:00?
+
+INSTALL GULP
+	npm install -g gulp
+	gulp (local not found)
+	npm install gulp --save-dev //dev dependencis file in packages
+
+	create gulpfile.js
+
+	var gulp = require('gulp');
+	var jshint = require('gulp-jshint');
+	var jscs = require('gulp-jscs');
+
+	var jsFiles = ['*.js', 'src/**/*.js'];
+
+	gulp.task('style', function(){
+		return gulp.src(jsFiles)
+			.pipe(jshint());
+			.pipe(jshint.report('jshint-stylish', { verbose: true }));
+			.pipe(jscs());
+	});
+
+
+		npm install --save-dev gulp-jshint gulp-jscs jshint-stylish
+
+		should see this in package.json
+
+		gulp style
+
+	SETTING UP WIREDUP
+	Install html automatically
+		npm install wiredep --save-dev
+
+	gulp.js
+		gulp.task('inject',function(){
+		var wiredep = require('wiredep').stream;
+		var options = {
+			bowerJson: require('./bower.json')
+			directory: './public/lib'
+		}
+		return gulp.src('./ssrc/views/*.html')
+		.pipe(wiredep(options))
+		.pipe(gulp.dest('./src/views'));
+
+		});
+
+		Go to index.html
+		Delete scripts on 250 & 251
+
+		Got to line 11 
+		<!--bower:js-->
+		line 12
+		<!--endbower-->
+
+		gulp inject
+
+		line 11/12 - This won't work.
+		<!--bower:css-->
+		<!--endbower-->
+
+FIX BOOTSTRAP AND WIREDEP
+	our bower.json file
+		past in some overrides under dependencies:
+			"overrides":{
+				"bootstrap":{
+					"main": [
+						"dist/js/bootstrap.js",
+						"dist/css/bootstrap.min.css",
+						"less/bootstrap.less"
+					]
+				},
+				"font-awesome": {
+					"main": [
+						"less/font-awesome.less",
+						"css/font-awesome.min.css",
+						"scss/font-awesmoe.scss"
+
+					]
+				}
+			}
+
+
+			//Save this - overriding the other bower.json in the bower lib
+
+			gulp inject
+
+	Dealing with the ../
+	gulp file
+
+		add this to opitnos
+			ignorePath: '../../public'
+
+			run: gulp inject
+
+
+	npm gulp inject --save-dev
+
+	in package.json - gulp-inject is in devD
+
+	gulp.js
+	//under wiredep requre
+
+	var inject = require('gulp-inject');
+	var injectSrc =  gulp.src(['./public/css/*.css', './public/js/.*.js'], {read: false});
+
+	var injectOptions = {
+		ignorePath: '/publc'
+	}
+
+
+	//add a pipe
+	.pipe(inject(injectSrc, injectOptions))
+
+	Go to index.html
+
+	line 17 under <!--endbower-->
+	<!--inject:css-->
+	<!--endinject-->
+	<!--inject:js-->
+	<!--endinject-->
+
+	gulp-inject
+
+	if needed, delete css/bootstrap.min.css
+	bootstrap.min.js
+
+	create a new js file 
+	app.js 
+
+
+This is important when we have more than one javascript file
+automatically updates html files
+
+
+NODEMON
+//monitor files for changes
+//auto restart server
+
+	npm install --save-dev gulp-nodemon
+
+gulp file
+
+	var nodemon = require('gulp-nodemon');
+
+	gulp.task('serve', ['style', 'inject'], function(){
+		var options = {
+			script: 'app.js',
+			delayTime: 1,
+			env: {
+				'PORT' : 5000
+			},
+			watch: jsFiles
+		}
+		return nodemon(options)
+			.on('restart', function(ev){
+				console.log('Restarting....');
+			})
+	})
+
+//as events fire, we can send functions in
+
+
+	gulp serve  //fails? - ran styles to check everything then failed
+
+
+	//experiment with changing to PORT 3000
+
+	//in app.js change var port
+
+	var port = process.env.PORT || 5000;
+
+
+//TEMPLATING ENGINES
+	-engines allow express to build pages for us.
+	-Jade
+	-Handlebars
+	-EJS
+
+JADE
+	-runs through a compiler, a little different than HTML
+		eliminate closing tags
+		need to be paragraphed
+		html
+			head
+				title Our app
+
+	app.js 
+
+	change app.use(express.static('src/views'))
+
+	to 
+	app.set('views', './src/views');
+	app.set('view engine', 'jade');
+
+	INSTALL JADE
+
+	npm install --save jade
+
+	check package.json
+
+	Inside views
+	new file
+		index.jade
+	html
+		head
+			title OurApp
+		body
+			h1 My App
+			p
+				h3 here it is	
+
+	change  app.get in app.js
+		res.render('index')	
+
+		node app.js
+
+		Should see a basic jade app
+
+JADE AND JAVASCRIPT
+
+	html
+			head
+				title OurApp
+			body(class ='myClass')
+				h1 My App
+				p
+					h3 here it is			
+
+HANDLEBARS
+
+
+EJS
+
+
+
+ROUTING
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
