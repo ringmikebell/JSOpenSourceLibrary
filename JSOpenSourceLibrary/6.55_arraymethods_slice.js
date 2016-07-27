@@ -9,7 +9,7 @@ var numbersTwo = numbers.slice(0,3);
 console.log(numbersTwo);
 
 //We made a shallow copy, so the 
-//original array is still in tact.
+//original array is still intact.
 console.log(numbers);
 
 var numbersThree = numbers.slice(4,9);
